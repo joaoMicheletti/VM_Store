@@ -6,15 +6,14 @@
 }
 
 header {
-    position: fixed; /* Altera para fixed */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 130px;
-    z-index: 1000; /* Garante que o header fique acima de outros elementos */
-    background-color: white; /* Define um fundo para o header */
+    height: 135px;
+    z-index: 1000;
+    background-color: white;
 }
-
 hr {
     color: rgba(0, 0, 0, 0.295);
 }
@@ -101,23 +100,46 @@ hr {
     padding: 10px;
     list-style: none;
 }
+
 @keyframes backgroundSwitch {
     0% {
-      background-image: url('./assets/vita.png');
+        background-image: url('./assets/vita01.png');
     }
     50% {
-      background-image: url('./assets/vita.png');
+        background-image: url('./assets/vita02.png');
     }
     100% {
-      background-image: url('https://vistadudalina.vtexassets.com/assets/vtex.file-manager-graphql/images/ec5e575d-5796-4643-a8b8-a179b118c51d___7247f6fa98b68a0b00560a73de890f30.jpg');
+        background-image: url('https://vistadudalina.vtexassets.com/assets/vtex.file-manager-graphql/images/ec5e575d-5796-4643-a8b8-a179b118c51d___7247f6fa98b68a0b00560a73de890f30.jpg');
     }
-  }
-  
-  #Plubicidade {
+}
+
+#Plubicidade {
     width: 100%;
     height: 100vh;
     background-size: cover;
     background-position: center;
     animation: backgroundSwitch 10s infinite ease-in-out;
-  }
-  
+}
+
+/* Media Queries para Background Responsivo */
+@media (max-width: 768px) {
+    #Plubicidade {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 0% 15%
+    }
+    #campSeach {
+        display: none;
+    }
+    #H1Name {
+        font-size: 20px;
+    }
+    #Profile {
+        width: 30px;
+        height: 30px;
+    }    
+    #Cart {
+        width: 30px;
+        height: 30px;
+    }
+}
