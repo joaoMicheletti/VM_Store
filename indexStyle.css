@@ -4,6 +4,10 @@
     box-sizing: border-box;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+a {
+    text-decoration: none;
+    color: black;
+}
 
 header {
     position: fixed;
@@ -143,21 +147,75 @@ hr {
         height: 30px;
     }
 }
-#Feminino { 
-    background-color: aqua;
+#Feminino {
     width: 90%;
     margin-left: 5%;
+    margin-top: 40px;
 }
 #RoupasF {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
-    background-color: rgb(134, 134, 165);
+}
+#roupas-slide {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    width: 16%;
+    border: solid 1px rgba(0, 0, 0, 0.349);
+    box-shadow: 2px 2px 5px black;
+}
+#roupas-slide:hover {
+    width: 17%;
 }
 #SapatosF{
+    border: 1px solid black;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
-    background-color: rgb(53, 53, 68);
-
+}
+#sapatos-slide {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    border: solid 1px rgba(0, 0, 0, 0.349);
+    width: 16%;
+    box-shadow: 2px 2px 5px black;
+}
+#sapatos-slide:hover{
+    width: 17%;
 }
 #AcessoriosF {
+    border: 1px solid black;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
-    background-color: rgb(8, 8, 121);
+}
+#acessorios-slide {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    border: solid 1px rgba(0, 0, 0, 0.349);
+    width: 16%;
+    box-shadow: 2px 2px 5px black;    
+}
+#acessorios-slide:hover{
+    width: 17%;
+}
+.btnPN {
+    background-color: transparent;
+    border: none;
+    font-weight: 900;
+}
+.btnPN:hover {
+    font-size: 19px;
+}
+.imgSlides {
+    width: 100%;
 }
