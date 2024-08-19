@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="imagem/png" href="assets/favicon-16x16.png" />
     <link rel="stylesheet" href="./indexStyle.css"/>
+    <script src="./scriptSlidesF.js"></script>
     <title>VM Store</title>
 </head>
 <body>
@@ -33,5 +34,23 @@
         </div>
     </header> 
     <section id="Plubicidade"></section>
+    <section id="Feminino">
+        <div id="RoupasF">
+            <button onclick="prevSlide('RoupasF', 'roupas-slide')">Anterior</button>
+            <p id="roupas-slide">RF</p>
+            <button onclick="nextSlide('RoupasF', 'roupas-slide')">Próximo</button>
+        </div>
+        <div id="SapatosF">
+            <button onclick="prevSlide('SapatosF', 'sapatos-slide')">Anterior</button>
+            <p id="sapatos-slide">SF</p>
+            <button onclick="nextSlide('SapatosF', 'sapatos-slide')">Próximo</button>
+        </div>
+        <div id="AcessoriosF">
+            <button onclick="prevSlide('AcessoriosF', 'acessorios-slide')">Anterior</button>
+            <p id="acessorios-slide">AF</p>
+            <button onclick="nextSlide('AcessoriosF', 'acessorios-slide')">Próximo</button>
+        </div>
+    </section>
+       
 </body>
 </html>

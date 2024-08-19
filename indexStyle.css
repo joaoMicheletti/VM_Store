@@ -143,3 +143,21 @@ hr {
         height: 30px;
     }
 }
+#Feminino { 
+    background-color: aqua;
+    width: 90%;
+    margin-left: 5%;
+}
+#RoupasF {
+    width: 100%;
+    background-color: rgb(134, 134, 165);
+}
+#SapatosF{
+    width: 100%;
+    background-color: rgb(53, 53, 68);
+
+}
+#AcessoriosF {
+    width: 100%;
+    background-color: rgb(8, 8, 121);
+}
