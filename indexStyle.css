@@ -219,3 +219,16 @@ hr {
 .imgSlides {
     width: 100%;
 }
+#Masculino {
+    width: 80%;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+}
+#RoupasMasculinas {
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
