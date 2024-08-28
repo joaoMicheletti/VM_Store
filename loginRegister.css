@@ -1,0 +1,36 @@
+#FormLogin {
+    margin-top: 140px;
+    width: 100%;
+    height: 100vh;
+}
+h1 {
+    font-size: 40px;
+    text-align: center;
+}
+#Form{
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+}
+#Form input {
+    width: 80%;
+    height: 40px;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    border-color: rgba(175, 171, 171, 0.541);
+    box-shadow: 5px 2px 5px;
+}
+#Form button{
+    width: 50%;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: 5px 2px 5px;
+    border-color: transparent;
+    background-color: rgba(98, 101, 104, 0.76);
+}
+#Form button:hover {
+    background-color: rgba(98, 101, 104, 0.459);
+}
