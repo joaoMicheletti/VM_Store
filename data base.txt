@@ -16,7 +16,6 @@ id             =
 nome           =
 sexo           =
 categoria      =
-descrição      =
 tamanhos       =
 cores          =
 quantidade     =
