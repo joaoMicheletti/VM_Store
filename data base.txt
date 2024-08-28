@@ -5,6 +5,7 @@ DATABASE
 Usuário
 ================
 id             =
+token          =
 Email          =
 passwor        =
 ================
