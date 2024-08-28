@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./indexStyle.css"/>
     <link rel="stylesheet" href="./loginRegister.css"/>
-    <title>Vita Micheletti | Register</title>
+    <link rel="stylesheet" href="./carrinho.css"/>
+    <title>Vita Micheletti | Carrinho</title>
 </head>
 <body>
     <header>
@@ -17,7 +18,7 @@
             </div>
             <div id="navigation">
                 <a href="login.html"><img id="Profile" src="assets/perfil.png" alt="profile"/></a>
-                <a href="carrinho.html"><img id="Cart" src="assets/sacola.png" alt="cart"/></a>
+                <img id="Cart" src="assets/sacola.png" alt="cart"/>
             </div>
         </div>
         <hr/>
@@ -29,31 +30,62 @@
             </div>
         </div>
     </header>
-    <Section id="FormLogin">
-        <div id="Form">
+    <section id="pendentes">
+        <h3>Pedidos adicionados</h3>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div id="pedidosPendentes">
+            <div id="RoupasF">
+                <button class="btnPN" onclick="prevSlide('RoupasF', 'roupas-slide')">&lt;</button>
+                
+                <div id="roupas-slide">
+                    <img class="imgSlides" src="assets/0001.webp"/>
+                    
+                </div>
+                <div id="roupas-slide">
+                    <img class="imgSlides" src="assets/0001.webp"/>
+                    
+                </div>
+                <div id="roupas-slide">
+                    <img class="imgSlides" src="assets/0001.webp"/>
+                    
+                </div>
+                <button class="btnPN" onclick="nextSlide('RoupasF', 'roupas-slide')">&gt;</button>
+            </div>
             <br/>
-            <br/>
-            <br/>
-            <br/>
-            <h1>Register</h1>
-            <br/>
-            <label>
-                E-MAIL <br/>
-                <input type="email" placeholder=" type your e-mail here"/>
-            </label><br/>
-            <label>
-                PASSWORD<br/>
-                <input type="email" placeholder=" type your password here"/>
-            </label><br/>
-            <label>
-                CONFIRM PASSWORD<br/>
-                <input type="email" placeholder=" type your password here"/>
-            </label><br/>
-            <button>Register</button><br/><br/>
-            <a href="login.html">Login</a>
+            
         </div>
-
-    </Section>
+    </section>   
+    <section id="aprovados">
+        <h3>PedidosFinalizados</h3>
+        <div id="pedidosFinalizados">
+            
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            </div>
+            <div id="RoupasF">
+                <button class="btnPN" onclick="prevSlide('RoupasF', 'roupas-slide')">&lt;</button>
+                
+                <div id="roupas-slide">
+                    <img class="imgSlides" src="assets/0001.webp"/>
+                    
+                </div>
+                <div id="roupas-slide">
+                    <img class="imgSlides" src="assets/0001.webp"/>
+                    
+                </div>
+                <div id="roupas-slide">
+                    <img class="imgSlides" src="assets/0001.webp"/>
+                    
+                </div>
+                <button class="btnPN" onclick="nextSlide('RoupasF', 'roupas-slide')">&gt;</button>
+            </div>
+            <br/>
+    </section>
     <footer>
         <div class="footer-container">
             <div class="footer-section">
@@ -71,6 +103,6 @@
                 </div>
             </div>
         </div>
-    </footer>    
+    </footer>  
 </body>
 </html>

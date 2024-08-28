@@ -1,0 +1,31 @@
+
+DATABASE
+
+
+Usuário
+================
+id             =
+Email          =
+passwor        =
+================
+
+Produto
+================
+id             =
+nome           =
+sexo           =
+categoria      =
+descrição      =
+tamanhos       =
+cores          =
+quantidade     =
+preço          =
+================
+
+
+Carrinho
+================
+id_usuário     =
+id_Produto     =
+status         =
+================
