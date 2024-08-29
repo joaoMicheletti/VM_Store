@@ -29,3 +29,18 @@ id_usuário     =
 id_Produto     =
 status         =
 ================
+
+Demnda
+====================
+id                 =
+id_user            =
+id_Produto         =
+valor_produto      =
+Produto_quantidade =
+valor_frete        =
+status_pagamneto   =
+cep                =
+numero_residencia  =
+destinatario       =
+status_intrega     =
+====================
