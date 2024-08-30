@@ -30,7 +30,7 @@ id_Produto     =
 status         =
 ================
 
-Demnda
+Demanda
 ====================
 id                 =
 id_user            =

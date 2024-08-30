@@ -6,6 +6,47 @@
     <link rel="stylesheet" href="./indexStyle.css"/>
     <link rel="stylesheet" href="./loginRegister.css"/>
     <title>Vita Micheletti | Register</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function Register() {
+            const Api = axios;
+            var email = document.querySelector('#email').value;
+            var senha = document.querySelector('#pass').value;
+            var csenha = document.querySelector("#cpass").value;
+
+            if (email === '') {
+                alert('Preencha o campo E-mail');
+            } else if (senha === '') {
+                alert('Preencha o campo Password');
+            } else if(csenha === ''){
+                alert('Preencha o campo Comfirm Password');
+            } else {
+                if(senha !== csenha){
+                    alert('As senhas não correspondem!');
+                } else {
+                    const data = { email, senha };
+
+                    try {
+                        const response = await Api.post('http://localhost:3000/register', data);
+                        console.log(response.data);
+                        if (response.data.resp === "Usuário já cadastrado.") {
+                            alert(response.data.resp);
+                        } else if(response.data.resp === "Cadastrado com sucesso!"){
+                            alert("Cadastrado com sucesso!");
+                            //window.location.href = '';
+
+                        };
+                        // Redirecionar ou realizar outras ações com base na resposta
+                    } catch (error) {
+                        console.error('Erro ao fazer login:', error.response ? error.response.data : error.message);
+                        alert('Erro ao fazer login. Verifique suas credenciais.');
+                    };
+                };
+            };
+
+            
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -39,17 +80,17 @@
             <br/>
             <label>
                 E-MAIL <br/>
-                <input type="email" placeholder=" type your e-mail here"/>
+                <input id="email" type="email" placeholder=" type your e-mail here"/>
             </label><br/>
             <label>
                 PASSWORD<br/>
-                <input type="email" placeholder=" type your password here"/>
+                <input id="pass" type="email" placeholder=" type your password here"/>
             </label><br/>
             <label>
                 CONFIRM PASSWORD<br/>
-                <input type="email" placeholder=" type your password here"/>
+                <input id="cpass" type="email" placeholder=" type your password here"/>
             </label><br/>
-            <button>Register</button><br/><br/>
+            <button onclick="Register()">Register</button><br/><br/>
             <a href="login.html">Login</a>
         </div>
 
