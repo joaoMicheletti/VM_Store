@@ -6,6 +6,34 @@
     <link rel="stylesheet" href="./indexStyle.css"/>
     <link rel="stylesheet" href="./loginRegister.css"/>
     <title>Vita Micheletti | Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function Logar() {
+            const Api = axios;
+            var email = document.querySelector('#email').value;
+            var senha = document.querySelector('#pass').value;
+
+            if (email === '') {
+                alert('Preencha o campo E-mail');
+                return;
+            } else if (senha === '') {
+                alert('Preencha o campo Password');
+                return;
+            } 
+
+            const data = { email, senha };
+
+            try {
+                const response = await Api.post('http://localhost:3000/login', data);
+                console.log(response.data);
+                // Redirecionar ou realizar outras ações com base na resposta
+            } catch (error) {
+                console.error('Erro ao fazer login:', error.response ? error.response.data : error.message);
+                alert('Erro ao fazer login. Verifique suas credenciais.');
+            }
+        }
+    </script>
+    
 </head>
 <body>
     <header>
@@ -39,13 +67,13 @@
             <br/>
             <label>
                 E-MAIL <br/>
-                <input type="email" placeholder=" type your e-mail here"/>
+                <input id="email" type="email" placeholder=" type your e-mail here"/>
             </label><br/>
             <label>
                 PASSWORD<br/>
-                <input type="email" placeholder=" type your password here"/>
+                <input id="pass" type="text" placeholder=" type your password here"/>
             </label><br/>
-            <button>Login</button> <br/>
+            <button onclick="Logar()" >Login</button> <br/>
             <br/>
             <a href="register.html" >Registrar-se</a>
         </div>
