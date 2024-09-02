@@ -27,6 +27,14 @@
                 const response = await Api.post('http://localhost:3000/login', data);
                 console.log(response.data);
                 // Redirecionar ou realizar outras ações com base na resposta
+                if(response.data.resp === 'Usuário não encontrado.'){
+                    alert(response.data.resp);
+                } else if(response.data.resp === 'Usuário ou senha invalidos.' ){
+                    alert(response.data.resp);
+                } else {
+                    localStorage.setItem('token', response.data.resp);
+                    location.href = 'index.html'
+                }
             } catch (error) {
                 console.error('Erro ao fazer login:', error.response ? error.response.data : error.message);
                 alert('Erro ao fazer login. Verifique suas credenciais.');
