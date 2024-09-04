@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./indexStyle.css"/>
+    <link rel="stylesheet" href="./loginRegister.css"/>
+    <title>Vita Micheletti | Login ADM</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function Logar() {
+            const Api = axios;
+            var email = document.querySelector('#email').value;
+            var senha = document.querySelector('#pass').value;
+
+            if (email === '') {
+                alert('Preencha o campo E-mail');
+                return;
+            } else if (senha === '') {
+                alert('Preencha o campo Password');
+                return;
+            } 
+
+            const data = { email, senha };
+
+            try {
+                const response = await Api.post('http://localhost:3000/loginadm', data);
+                console.log(response.data);
+                // Redirecionar ou realizar outras ações com base na resposta
+                if(response.data.resp === 'Usuário não encontrado.'){
+                    alert(response.data.resp);
+                } else if(response.data.resp === 'Usuário ou senha invalidos.' ){
+                    alert(response.data.resp);
+                } else {
+                    localStorage.setItem('token', response.data.resp);
+                    location.href = 'cadproduto.html' //direcionar para a pagina de cadastro de produtos:
+                }
+            } catch (error) {
+                console.error('Erro ao fazer login:', error.response ? error.response.data : error.message);
+                alert('Erro ao fazer login. Verifique suas credenciais.');
+            }
+        }
+    </script>
+    
+</head>
+<body>
+    <header>
+        <div id="ContentHeader"> 
+            
+            <div id="LogoAndName">
+                <img  id="ImgLogo" src="assets/headerLogo.png" alt="logo Header"/>
+                <h1 id="H1Name">Vita Micheletti</h1>
+            </div>
+        </div>
+        <hr/>
+    </header>
+    <Section id="FormLogin">
+        <div id="Form">
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <h1>Login | ADM</h1>
+            <br/>
+            <label>
+                user <br/>
+                <input id="email" type="text" placeholder=" type your e-mail here"/>
+            </label><br/>
+            <label>
+                PASSWORD<br/>
+                <input id="pass" type="password" placeholder=" type your password here"/>
+            </label><br/>
+            <button onclick="Logar()" >Login</button> <br/>
+            <br/>
+        </div>
+
+    </Section>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <p>&copy; 2024 Nome do Salão. Todos os direitos reservados.</p>
+            </div>
+            <div class="footer-section">
+                <p>Horário de Funcionamento: 24H</p>
+            </div>
+            <div class="footer-section">
+                <p>Desenvolvido por: <a href="https://nimble-conkies-fa2423curso-de-nodejs.netlify.app/vm/" target="_blank">VM_Software</a></p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/vm_software/" target="_blank">Facebook</a> | 
+                    <a href="https://www.instagram.com/vm_software/" target="_blank">Instagram</a> | 
+                    <a href="https://nimble-conkies-fa2423curso-de-nodejs.netlify.app/vm/" target="_blank">Site</a>
+                </div>
+            </div>
+        </div>
+    </footer>    
+</body>
+</html>

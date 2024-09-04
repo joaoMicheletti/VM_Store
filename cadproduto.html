@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./indexStyle.css"/>
+    <link rel="stylesheet" href="./cadproduto.css"/>
+    <title>Vita Micheletti | CadProduto</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function CadastrarProduto() {
+            alert("cadProduto");  
+        };
+    </script>
+    
+</head>
+<body>
+    <header>
+        <div id="ContentHeader"> 
+            
+            <div id="LogoAndName">
+                <img  id="ImgLogo" src="assets/headerLogo.png" alt="logo Header"/>
+                <h1 id="H1Name">Vita Micheletti</h1>
+            </div>
+        </div>
+        <hr/>
+    </header>
+    <Section id="FormCad">
+        <div id="Form">
+            <br/>
+            <br/>
+            <br/>
+            <div id="content" >
+                <div class="Cad">
+                    <h4>Cadastrar Produto</h4>
+                    <br/>
+                    <input type="file"/>
+                    <br?>
+                    <p>Nome do produto</p>
+                    <input type="text" placeholder="  Nome do produto"/>
+                    <p>Destindado ao público:</p>
+                    <select id="options" name="options">
+                        <option value="Selecione o Público">Selecionar</option>
+                        <option value="feminino">Feminino</option>
+                        <option value="masculino">Masculino</option>
+                    </select>
+                    <br/>
+                    <br/>
+                    <p>Categoria do produto::</p>
+                    <select id="options" name="options">
+                        <option value="selecionar">Selecionar</option>
+                        <option value="roupas">Roupas</option>
+                        <option value="sapatos">calçados</option>
+                        <option value="acessorios">Acessorios</option>
+                    </select>
+                    <br/>
+                    <br/>
+                    <p>Tamanhos: separar por (-)</p>
+                    <input type="text" placeholder="   28-29-40-42">
+                    <br/>
+                    <p>Cores: separar por (-)</p>
+                    <input type="text" placeholder=" azul-verde-vermelho"/>
+                    <br/>
+                    <p>Quantidade:</p>
+                    <input type="number" placeholder="Preço do produto"/>
+                    <br/>
+                    <br>
+                    <button onclick="CadastrarProduto()">Cadastrar</button>
+                </div>
+                <div class="Cad">
+                    <h4>Editar Produto</h4>
+                </div>
+            </div>
+            
+        </div>
+
+    </Section>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <p>&copy; 2024 Nome do Salão. Todos os direitos reservados.</p>
+            </div>
+            <div class="footer-section">
+                <p>Horário de Funcionamento: 24H</p>
+            </div>
+            <div class="footer-section">
+                <p>Desenvolvido por: <a href="https://nimble-conkies-fa2423curso-de-nodejs.netlify.app/vm/" target="_blank">VM_Software</a></p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/vm_software/" target="_blank">Facebook</a> | 
+                    <a href="https://www.instagram.com/vm_software/" target="_blank">Instagram</a> | 
+                    <a href="https://nimble-conkies-fa2423curso-de-nodejs.netlify.app/vm/" target="_blank">Site</a>
+                </div>
+            </div>
+        </div>
+    </footer>    
+</body>
+</html>

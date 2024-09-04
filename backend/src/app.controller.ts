@@ -10,6 +10,15 @@ export class AppController {
   async Login(@Body() data: Login): Promise<object> {
     return this.appService.Login(data);
   };
+  //login ADM
+  @Post('loginadm')
+  async LoginAdm(@Body() data: Login): Promise<object> {
+    return this.appService.LoginAdm(data);
+  };
+  @Post('registeradm')
+  async RegisterAdm(@Body() data: Login) : Promise<object> {
+    return await this.appService.RegisterAdm(data);
+  }
   @Post('register')
   async Register(@Body() data: Login) : Promise<object> {
     return await this.appService.Register(data);
