@@ -9,7 +9,67 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         async function CadastrarProduto() {
-            alert("cadProduto");  
+            var fileInput = document.querySelector("#file");
+            var file = fileInput.files[0]; // Seleciona o primeiro arquivo 
+            var name = document.querySelector("#name").value;
+            var FM = document.querySelector("#FM").value;
+            var categoria = document.querySelector("#categoria").value;
+            var tamanho = document.querySelector("#tamanho").value;
+            var cor = document.querySelector("#cor").value;
+            var quantidade = document.querySelector('#quantidade').value;
+            var preco = document.querySelector("#preco").value;
+            console.log(tamanho);
+
+            if (!file) {
+                alert('selecione um arquivo.')
+            } else if(!name){
+                alert('Preencha o campo Nome do Produto.');
+            } else if(FM === 'selecione'){
+                alert('Selecione o público destinado.');
+            } else if(categoria === 'selecione'){
+                alert('selecione a categoria do produto');
+            } else if(!tamanho){
+                alert('Preencha o campo tamanho.');
+            } else if(!cor){
+                alert('Preencha o campo Cor.');
+            } else if(!quantidade){
+                alert("Preencha o campo Quantidade");
+            } else if(!preco ){
+                alert("Preencha o campo Preço");
+            };
+            const Data = {name, FM, categoria, tamanho, cor, quantidade, preco}
+
+            // Corrigindo a inicialização do FormData (F maiúsculo)
+            var formData = new FormData();
+            // Corrigindo a sintaxe do formData.append (vírgula em vez de ponto)
+            formData.append('image', file);
+            // Verificando o conteúdo do FormData
+            console.log(formData.get('image')); // Irá exibir o arquivo selecionado
+            // Aqui você pode continuar com o envio usando fetch ou outra lógica
+        }
+        async function EditarProduto() {
+            var idProduto = document.querySelector("#idProduto").value;
+            var editarTamano = document.querySelector("#editarTamano").value;
+            var editarCore = document.querySelector("#editarCore").value;
+            var editarQuantidade = document.querySelector("#editarQuantidade").value;
+            var preco = document.querySelector("#editarpreco").value;
+
+            if (!idProduto) {
+                alert('Preencha o campo ID do Produto.');
+            } else if (!editarTamano) {
+                alert('Preencha o campo Tamanhos.');
+            } else if (!editarCore) {
+                alert('Preencha o campo Cores.');
+            } else if (!editarQuantidade) {
+                alert('Preencha o campo Quantidade.');
+            } else if (!preco) {
+                alert('Preencha o campo Preço.');
+            } else {
+                const Data = {idProduto, editarTamano, editarCore, editarQuantidade, preco};
+                console.log('Dados para edição:', Data);
+
+                // Aqui você pode adicionar o código para enviar os dados para o backend...
+            };
         };
     </script>
     
@@ -34,21 +94,21 @@
                 <div class="Cad">
                     <h4>Cadastrar Produto</h4>
                     <br/>
-                    <input type="file"/>
+                    <input id="file" type="file"/>
                     <br?>
                     <p>Nome do produto</p>
-                    <input type="text" placeholder="  Nome do produto"/>
+                    <input id="name" type="text" placeholder="  Nome do produto"/>
                     <p>Destindado ao público:</p>
-                    <select id="options" name="options">
-                        <option value="Selecione o Público">Selecionar</option>
+                    <select id="FM" name="options">
+                        <option value="selecione">Selecionar</option>
                         <option value="feminino">Feminino</option>
                         <option value="masculino">Masculino</option>
                     </select>
                     <br/>
                     <br/>
                     <p>Categoria do produto::</p>
-                    <select id="options" name="options">
-                        <option value="selecionar">Selecionar</option>
+                    <select id="categoria" name="options">
+                        <option value="selecione">Selecionar</option>
                         <option value="roupas">Roupas</option>
                         <option value="sapatos">calçados</option>
                         <option value="acessorios">Acessorios</option>
@@ -56,19 +116,39 @@
                     <br/>
                     <br/>
                     <p>Tamanhos: separar por (-)</p>
-                    <input type="text" placeholder="   28-29-40-42">
+                    <input id="tamanho" type="text" placeholder="   28-29-40-42">
                     <br/>
                     <p>Cores: separar por (-)</p>
-                    <input type="text" placeholder=" azul-verde-vermelho"/>
+                    <input id="cor" type="text" placeholder=" azul-verde-vermelho"/>
                     <br/>
                     <p>Quantidade:</p>
-                    <input type="number" placeholder="Preço do produto"/>
+                    <input id="quantidade" type="number" placeholder="Quantidade"/>
                     <br/>
+                    <p>Preço:</p>
+                    <input id="preco" type="number" placeholder="Preço do produto"/>
+                    
                     <br>
                     <button onclick="CadastrarProduto()">Cadastrar</button>
                 </div>
                 <div class="Cad">
                     <h4>Editar Produto</h4>
+                    <br/>
+                    <br/>
+                    <p>ID do Produto:</p>
+                    <input id="idProduto" type="number" placeholder="  ID do Produto"/>
+                    <p>Tamanhos: separar por (-)</p>
+                    <input id="editarTamano" type="text" placeholder="   28-29-40-42">
+                    <br/>
+                    <p>Cores: separar por (-)</p>
+                    <input id="editarCore" type="text" placeholder=" azul-verde-vermelho"/>
+                    <br/>
+                    <p>Quantidade:</p>
+                    <input id="editarQuantidade" type="number" placeholder="Preço do produto"/>
+                    <br/>
+                    <p>Preço:</p>
+                    <input id="editarpreco" type="number" placeholder="Preço do produto"/>
+                    <br>
+                    <button onclick="EditarProduto()">Editar Produto</button>
                 </div>
             </div>
             
