@@ -2,10 +2,10 @@
 DATABASE
 
 
-Usuário
+Usuário / adm
 ================
 id             =
-token          =
+token          =   ok
 Email          =
 passwor        =
 ================
@@ -13,8 +13,9 @@ passwor        =
 Produto
 ================
 id             =
+img            =
 nome           =
-sexo           =
+sexo           =    ok 
 categoria      =
 tamanhos       =
 cores          =
@@ -25,7 +26,8 @@ preço          =
 
 Carrinho
 ================
-id_usuário     =
+id             =
+id_usuário     =   ok
 id_Produto     =
 status         =
 ================
@@ -37,7 +39,7 @@ id_user            =
 id_Produto         =
 valor_produto      =
 Produto_quantidade =
-valor_frete        =
+valor_frete        =     ok
 status_pagamneto   =
 cep                =
 numero_residencia  =
