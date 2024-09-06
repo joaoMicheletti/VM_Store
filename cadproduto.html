@@ -8,10 +8,13 @@
     <title>Vita Micheletti | CadProduto</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        async function CadastrarProduto() {
+        const Api = axios;
+        async function CadastrarProduto(event) {
+            event.preventDefault(); // Evita o comportamento padrão de envio do formulário
+
             var fileInput = document.querySelector("#file");
             var file = fileInput.files[0]; // Seleciona o primeiro arquivo 
-            var name = document.querySelector("#name").value;
+            var nome = document.querySelector("#name").value;
             var FM = document.querySelector("#FM").value;
             var categoria = document.querySelector("#categoria").value;
             var tamanho = document.querySelector("#tamanho").value;
@@ -21,13 +24,13 @@
             console.log(tamanho);
 
             if (!file) {
-                alert('selecione um arquivo.')
-            } else if(!name){
+                alert('Selecione um arquivo.')
+            } else if(!nome){
                 alert('Preencha o campo Nome do Produto.');
             } else if(FM === 'selecione'){
                 alert('Selecione o público destinado.');
             } else if(categoria === 'selecione'){
-                alert('selecione a categoria do produto');
+                alert('Selecione a categoria do produto');
             } else if(!tamanho){
                 alert('Preencha o campo tamanho.');
             } else if(!cor){
@@ -36,9 +39,8 @@
                 alert("Preencha o campo Quantidade");
             } else if(!preco ){
                 alert("Preencha o campo Preço");
-            };
-            const Data = {name, FM, categoria, tamanho, cor, quantidade, preco}
-
+            }
+            
             // Corrigindo a inicialização do FormData (F maiúsculo)
             var formData = new FormData();
             // Corrigindo a sintaxe do formData.append (vírgula em vez de ponto)
@@ -46,8 +48,26 @@
             // Verificando o conteúdo do FormData
             console.log(formData.get('image')); // Irá exibir o arquivo selecionado
             // Aqui você pode continuar com o envio usando fetch ou outra lógica
+            console.log(formData);
+            await Api.post('http://localhost:3000/logo', formData).then((Response) => {
+                if(Response.data.filename.length > 0){
+                    const Data = {img: Response.data.filename, nome, sexo:FM, categoria, tamanho, cor, quantidade, preco};
+                    console.log(Data);
+                    // Cadastrar as demais informações do produto no banco de dados.
+                    Api.post('http://localhost:3000/registerproduto', Data).then((Response) => {
+                        alert(Response.data.resp);
+                    }).catch((erro) => {console.log(erro)});
+                } else {
+                    alert("Erro ao salvar imagem no servidor.");
+                }
+            }).catch((erro) => {
+                console.log(erro);
+            });
         }
-        async function EditarProduto() {
+
+        async function EditarProduto(event) {
+            event.preventDefault(); // Evita o comportamento padrão de envio do formulário
+
             var idProduto = document.querySelector("#idProduto").value;
             var editarTamano = document.querySelector("#editarTamano").value;
             var editarCore = document.querySelector("#editarCore").value;
@@ -65,40 +85,41 @@
             } else if (!preco) {
                 alert('Preencha o campo Preço.');
             } else {
-                const Data = {idProduto, editarTamano, editarCore, editarQuantidade, preco};
+                const Data = {id:idProduto, tamanho:editarTamano, cor:editarCore, quantidade:editarQuantidade, preco};
                 console.log('Dados para edição:', Data);
 
                 // Aqui você pode adicionar o código para enviar os dados para o backend...
+                Api.post('http://localhost:3000/editarproduto', Data).then((Response) => {
+                        alert(Response.data.resp);
+                    }).catch((erro) => {console.log(erro)});
             };
         };
     </script>
-    
 </head>
 <body>
     <header>
         <div id="ContentHeader"> 
-            
             <div id="LogoAndName">
-                <img  id="ImgLogo" src="assets/headerLogo.png" alt="logo Header"/>
+                <img id="ImgLogo" src="assets/headerLogo.png" alt="logo Header"/>
                 <h1 id="H1Name">Vita Micheletti</h1>
             </div>
         </div>
         <hr/>
     </header>
-    <Section id="FormCad">
+    <section id="FormCad">
         <div id="Form">
             <br/>
             <br/>
             <br/>
-            <div id="content" >
+            <div id="content">
                 <div class="Cad">
                     <h4>Cadastrar Produto</h4>
                     <br/>
                     <input id="file" type="file"/>
-                    <br?>
+                    <br/>
                     <p>Nome do produto</p>
                     <input id="name" type="text" placeholder="  Nome do produto"/>
-                    <p>Destindado ao público:</p>
+                    <p>Destinado ao público:</p>
                     <select id="FM" name="options">
                         <option value="selecione">Selecionar</option>
                         <option value="feminino">Feminino</option>
@@ -106,12 +127,12 @@
                     </select>
                     <br/>
                     <br/>
-                    <p>Categoria do produto::</p>
+                    <p>Categoria do produto:</p>
                     <select id="categoria" name="options">
                         <option value="selecione">Selecionar</option>
                         <option value="roupas">Roupas</option>
-                        <option value="sapatos">calçados</option>
-                        <option value="acessorios">Acessorios</option>
+                        <option value="sapatos">Calçados</option>
+                        <option value="acessorios">Acessórios</option>
                     </select>
                     <br/>
                     <br/>
@@ -128,7 +149,7 @@
                     <input id="preco" type="number" placeholder="Preço do produto"/>
                     
                     <br>
-                    <button onclick="CadastrarProduto()">Cadastrar</button>
+                    <button onclick="CadastrarProduto(event)">Cadastrar</button>
                 </div>
                 <div class="Cad">
                     <h4>Editar Produto</h4>
@@ -143,18 +164,16 @@
                     <input id="editarCore" type="text" placeholder=" azul-verde-vermelho"/>
                     <br/>
                     <p>Quantidade:</p>
-                    <input id="editarQuantidade" type="number" placeholder="Preço do produto"/>
+                    <input id="editarQuantidade" type="number" placeholder="Quantidade"/>
                     <br/>
                     <p>Preço:</p>
                     <input id="editarpreco" type="number" placeholder="Preço do produto"/>
                     <br>
-                    <button onclick="EditarProduto()">Editar Produto</button>
+                    <button onclick="EditarProduto(event)">Editar Produto</button>
                 </div>
             </div>
-            
         </div>
-
-    </Section>
+    </section>
     <footer>
         <div class="footer-container">
             <div class="footer-section">
