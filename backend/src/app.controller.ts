@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Get, Body } from '@nestjs/common';
 import { Login } from './DTO/loginDto.dto';  // Certifique-se de que o caminho e nome do arquivo estão corretos
 import {Produtos} from './DTO/produtosDto.dto';
 import { AppService } from './app.service';
@@ -36,4 +36,14 @@ export class AppController {
   async EditarProduto(@Body() data: Produtos): Promise<object> {
     return await this.appService.EditarProduto(data);
   };
+  //Buscar todos os produtos
+  @Get('produto')
+  async GetProduto(): Promise<object> {
+    return await this.appService.GetProduto();
+  };
+  //buscar produto especifico
+  @Post('uniproduto')
+  async UniProduto(@Body() data: Produtos): Promise<object> {
+    return await this.appService.UniProduto(data);
+  }
 };

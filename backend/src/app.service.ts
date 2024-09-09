@@ -107,4 +107,15 @@ export class AppService {
       return { resp: "atualizado com sucesso!"};
     };
   };
+  // buscar produtos no banco de dados;
+  async GetProduto():Promise<object>{
+    var produtos = await connection('produto').select('*');
+    return{produtos};
+  };
+  // Buscar um unico produto
+  async UniProduto(data: Produtos): Promise<object> {
+    console.log(data.id);
+    var produto = await connection('produto').where('id', data.id);
+    return{produto}
+  }
 }
