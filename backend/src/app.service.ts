@@ -133,4 +133,10 @@ export class AppService {
       return {resp: 'Erro!'};
     };
   };
-}
+  async GetCarrinho(data: Produtos): Promise<object>{
+    var token = data.token;
+    var list = await connection('carrinho').where('id_user', token).select('*');
+    console.log(list)
+    return{list}
+  };
+};
