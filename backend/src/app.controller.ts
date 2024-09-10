@@ -45,5 +45,11 @@ export class AppController {
   @Post('uniproduto')
   async UniProduto(@Body() data: Produtos): Promise<object> {
     return await this.appService.UniProduto(data);
+  };
+  //adicionar produto nocarrinho.
+  @Post('addcarrinho')
+  async AddCarrinho(@Body() data: Produtos): Promise<object>{
+    return await this.appService.AddCarrinho(data);
   }
+
 };

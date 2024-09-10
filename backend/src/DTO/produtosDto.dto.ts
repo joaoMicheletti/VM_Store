@@ -1,5 +1,6 @@
 export class Produtos {
     id: string;
+    id_produto: string;
     img: string;
     nome: string;
     sexo: string;
@@ -7,5 +8,6 @@ export class Produtos {
     tamanho: string;
     cor: string;
     quantidade: string;
-    preco: string;  
+    preco: string;
+    token: string;  
 };

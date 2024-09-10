@@ -117,5 +117,20 @@ export class AppService {
     console.log(data.id);
     var produto = await connection('produto').where('id', data.id);
     return{produto}
-  }
+  };
+  // ADICIONAR PRODUTO NO CARRINHO
+  async AddCarrinho(data: Produtos): Promise<object>{
+    console.log(data)
+    var id_produto = data.id_produto;
+    var id_user = data.token;
+    var status = 'carrinho';
+    const Data = {id_produto, id_user, status};
+    var res = await connection('carrinho').insert(Data);
+    console.log(res.length);
+    if(res.length > 0){
+      return {resp: 'Adicionado!'}
+    } else {
+      return {resp: 'Erro!'};
+    };
+  };
 }
