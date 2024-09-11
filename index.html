@@ -5,9 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="imagem/png" href="assets/favicon-16x16.png" />
     <link rel="stylesheet" href="./indexStyle.css"/>
-    <script src="./scriptSlidesF.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>VM Store</title>
     <script>
+        const acessoriosF = [];
+        const acessoriosM = [];
+        const sapatosF = [];
+        const sapatosM = [];
+        const roupasF = [];
+        const roupasM = [];
+
+        window.onload = async function(){
+            const Api = axios;
+            await Api.get('http://localhost:3000/produto').then((Response) => {
+                console.log(Response);
+                var produtos = Response.data.produtos;
+                var c = 0;
+                while(c < produtos.length){
+                    console.log(c);
+                    if(produtos[c].sexo === 'masculino'){
+                        if(produtos[c].categoria === 'acessorios'){
+                            acessoriosM.push(produtos[c]);
+                        } else if(produtos[c].categoria === 'sapatos'){
+                            sapatosM.push(produtos[c]);
+                        } else if(produtos[c].categoria ===  'roupas'){
+                            roupasM.push(produtos[c]);
+                        };
+                    } else if(produtos[c].sexo === 'feminino'){
+                        if(produtos[c].categoria === 'acessorios'){
+                            acessoriosF.push(produtos[c]);
+                        } else if(produtos[c].categoria === 'sapatos'){
+                            sapatosF.push(produtos[c]);
+                        } else if(produtos[c].categoria ===  'roupas'){
+                            roupasF.push(produtos[c]);
+                        }
+                    };
+                    c+=1;
+                };
+                console.log('acessoriosM >>>',acessoriosM);
+                console.log('sapatos masculinos >>>', sapatosM);
+                console.log('roupas masculinas >>>' , roupasM);
+                console.log('++++++++++++++++++++++++++++');
+                console.log('acessoriosF >>>',acessoriosF);
+                console.log('sapatos F >>>', sapatosF);
+                console.log('roupas F >>>' , roupasF);
+            }).catch((Erro) => {
+                console.log(Erro);
+            });
+            
+        };
+        //slide roupas Femininas;
+        function prevRoupaF(){
+            console.log('clicked');
+        };
+        function nextRoupaF(){
+            console.log("> Clicked")
+        }
+        //slide sapatos femininos;
+        //slide acessorios femininos;
         function Test(){
             window.location.href = './login.html'
         }
@@ -42,7 +97,7 @@
     <section id="Feminino">
         <h5>Moda Feminina</h5>
         <div id="RoupasF">
-            <button class="btnPN" onclick="prevSlide('RoupasF', 'roupas-slide')">&lt;</button>
+            <button class="btnPN" onclick="prevRoupaF()">&lt;</button>
             
             <div id="roupas-slide">
                 <img class="imgSlides" src="assets/0001.webp"/>
@@ -56,7 +111,7 @@
                 <img class="imgSlides" src="assets/0001.webp"/>
                 
             </div>
-            <button class="btnPN" onclick="nextSlide('RoupasF', 'roupas-slide')">&gt;</button>
+            <button class="btnPN" onclick="nextRoupaF()">&gt;</button>
         </div>
         <br/>
         <h5>Calçados Femininos</h5>
