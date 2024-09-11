@@ -6,7 +6,44 @@
     <link rel="stylesheet" href="./indexStyle.css"/>
     <link rel="stylesheet" href="./loginRegister.css"/>
     <link rel="stylesheet" href="./produto.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Vita Micheletti | produto</title>
+    <script>
+        const url = 'http://127.0.0.1:3000/image/';
+        const Api = axios;
+        var id_produto = 0;
+        window.onload = async function(){
+            if(localStorage.getItem('token') === null){
+                alert('Você não tem privilegios para acessar essa página.');
+                window.location.href = 'index.html';
+            } else {
+                var Data = {id: localStorage.getItem('id')};
+                await Api.post('http://localhost:3000/uniproduto', Data).then((Response) => {
+                    console.log(Response.data.produto[0].id);
+                    id_produto = Response.data.produto[0].id
+                    document.querySelector("#Img").src = url+Response.data.produto[0].img;
+                    document.querySelector("#nome").textContent = Response.data.produto[0].nome;
+                    document.querySelector("#cod").textContent = "Código: "+Response.data.produto[0].id;
+                    document.querySelector("#Tamanhos").textContent = "Tamamho: "+ Response.data.produto[0].tamanho;
+                    document.querySelector("#Cor").textContent = "Cores: "+ Response.data.produto[0].cor;
+                }).catch((Erro) => {
+                    console.log(Erro);
+                });                
+            };
+        };
+        //adicionar ao carrinho;
+        async function AddCarrinho(){
+            var Data = {token: localStorage.getItem('token'), id_produto};
+            console.log(Data);
+            Api.post('http://localhost:3000/addcarrinho', Data).then((Response) => {
+                alert(Response.data.resp);
+                window.location.href = 'index.html';
+            }).catch((Erro) =>{
+                console.log(Erro);
+            });
+
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -36,22 +73,26 @@
             <br/>
             <div id="Produto">
                 <div id="IMG">
-                    <img src="./assets/vmstore.JPG" alt="vm">
+                    <img id="Img" src="./assets/vmstore.JPG" alt="vm">
                 </div>
                 <div id="Descricao">
                     <br/>
                     <br/>
                     <p id='nome'>Nome</p><br/>
                     <p id="cod">ID</p><br/>
-                    <p>Tamanhos</p><br/>
-                    <p>Cores | Cores | Cores</p><br/>
-                    <button id="btnCarrinho" >Adicionar ao carrinho</button>
+                    <p id="Tamanhos">Tamanhos</p><br/>
+                    <p id="Cor">Cores | Cores | Cores</p><br/>
+                    <button id="btnCarrinho" onclick="AddCarrinho()">Adicionar ao carrinho</button>
                 </div>
             </div>
 
         </div>
         
     </section>  
+    <br/>
+    <br/> 
+    <br/>
+    <br/> 
     <br/>
     <br/> 
     <footer>
