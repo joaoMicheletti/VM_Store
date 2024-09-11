@@ -8,65 +8,152 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>VM Store</title>
     <script>
+        const url = 'http://172.17.3.193:3000/image/';
         const acessoriosF = [];
         const acessoriosM = [];
         const sapatosF = [];
         const sapatosM = [];
         const roupasF = [];
         const roupasM = [];
-
-        window.onload = async function(){
+    
+        // Índices atuais para diferentes categorias
+        let currentRoupaFIndex = 0;
+        let currentSapatoFIndex = 0;
+        let currentAcessorioFIndex = 0;
+        let currentRoupaMIndex = 0;
+        let currentSapatoMIndex = 0;
+        let currentAcessorioMIndex = 0;
+    
+        window.onload = async function() {
             const Api = axios;
-            await Api.get('http://localhost:3000/produto').then((Response) => {
-                console.log(Response);
+            await Api.get('http://172.17.3.193:3000/produto').then((Response) => {
                 var produtos = Response.data.produtos;
-                var c = 0;
-                while(c < produtos.length){
-                    console.log(c);
-                    if(produtos[c].sexo === 'masculino'){
-                        if(produtos[c].categoria === 'acessorios'){
-                            acessoriosM.push(produtos[c]);
-                        } else if(produtos[c].categoria === 'sapatos'){
-                            sapatosM.push(produtos[c]);
-                        } else if(produtos[c].categoria ===  'roupas'){
-                            roupasM.push(produtos[c]);
-                        };
-                    } else if(produtos[c].sexo === 'feminino'){
-                        if(produtos[c].categoria === 'acessorios'){
-                            acessoriosF.push(produtos[c]);
-                        } else if(produtos[c].categoria === 'sapatos'){
-                            sapatosF.push(produtos[c]);
-                        } else if(produtos[c].categoria ===  'roupas'){
-                            roupasF.push(produtos[c]);
-                        }
-                    };
-                    c+=1;
-                };
-                console.log('acessoriosM >>>',acessoriosM);
-                console.log('sapatos masculinos >>>', sapatosM);
-                console.log('roupas masculinas >>>' , roupasM);
-                console.log('++++++++++++++++++++++++++++');
-                console.log('acessoriosF >>>',acessoriosF);
-                console.log('sapatos F >>>', sapatosF);
-                console.log('roupas F >>>' , roupasF);
+    
+                produtos.forEach(produto => {
+                    if (produto.sexo === 'masculino') {
+                        if (produto.categoria === 'acessorios') acessoriosM.push(produto);
+                        if (produto.categoria === 'sapatos') sapatosM.push(produto);
+                        if (produto.categoria === 'roupas') roupasM.push(produto);
+                    } else if (produto.sexo === 'feminino') {
+                        if (produto.categoria === 'acessorios') acessoriosF.push(produto);
+                        if (produto.categoria === 'sapatos') sapatosF.push(produto);
+                        if (produto.categoria === 'roupas') roupasF.push(produto);
+                    }
+                });
+
+                console.log(sapatosM);
+                // Atualiza as imagens iniciais
+                updateRoupasFImages();
+                updateSapatosFImages();
+                updateAcessoriosFImages();
+                updateRoupasMImages();
+                updateSapatosMImages();
+                updateAcessoriosMImages();
             }).catch((Erro) => {
                 console.log(Erro);
             });
-            
         };
-        //slide roupas Femininas;
-        function prevRoupaF(){
-            console.log('clicked');
-        };
-        function nextRoupaF(){
-            console.log("> Clicked")
+    
+        // Funções para atualizar imagens (feminino e masculino)
+        function updateRoupasFImages() {
+            document.querySelector('#RF01').src = url + roupasF[currentRoupaFIndex % roupasF.length].img;
+            document.querySelector('#RF02').src = url + roupasF[(currentRoupaFIndex + 1) % roupasF.length].img;
+            document.querySelector('#RF03').src = url + roupasF[(currentRoupaFIndex + 2) % roupasF.length].img;
         }
-        //slide sapatos femininos;
-        //slide acessorios femininos;
-        function Test(){
-            window.location.href = './login.html'
+    
+        function updateSapatosFImages() {
+            document.querySelector('#SF01').src = url + sapatosF[currentSapatoFIndex % sapatosF.length].img;
+            document.querySelector('#SF02').src = url + sapatosF[(currentSapatoFIndex + 1) % sapatosF.length].img;
+            document.querySelector('#SF03').src = url + sapatosF[(currentSapatoFIndex + 2) % sapatosF.length].img;
+        }
+    
+        function updateAcessoriosFImages() {
+            document.querySelector('#AF01').src = url + acessoriosF[currentAcessorioFIndex % acessoriosF.length].img;
+            document.querySelector('#AF02').src = url + acessoriosF[(currentAcessorioFIndex + 1) % acessoriosF.length].img;
+            document.querySelector('#AF03').src = url + acessoriosF[(currentAcessorioFIndex + 2) % acessoriosF.length].img;
+        }
+    
+        function updateRoupasMImages() {
+            document.querySelector('#RM01').src = url + roupasM[currentRoupaMIndex % roupasM.length].img;
+            document.querySelector('#RM02').src = url + roupasM[(currentRoupaMIndex + 1) % roupasM.length].img;
+            document.querySelector('#RM03').src = url + roupasM[(currentRoupaMIndex + 2) % roupasM.length].img;
+        }
+    
+        function updateSapatosMImages() {
+            document.querySelector('#SM01').src = url + sapatosM[currentSapatoMIndex % sapatosM.length].img;
+            document.querySelector('#SM02').src = url + sapatosM[(currentSapatoMIndex + 1) % sapatosM.length].img;
+            document.querySelector('#SM03').src = url + sapatosM[(currentSapatoMIndex + 2) % sapatosM.length].img;
+        }
+    
+        function updateAcessoriosMImages() {
+            document.querySelector('#AM01').src = url + acessoriosM[currentAcessorioMIndex % acessoriosM.length].img;
+            document.querySelector('#AM02').src = url + acessoriosM[(currentAcessorioMIndex + 1) % acessoriosM.length].img;
+            document.querySelector('#AM03').src = url + acessoriosM[(currentAcessorioMIndex + 2) % acessoriosM.length].img;
+        }
+    
+        // Funções de navegação (prev/next)
+        function prevRoupaF() {
+            currentRoupaFIndex = (currentRoupaFIndex - 1 + roupasF.length) % roupasF.length;
+            updateRoupasFImages();
+        }
+    
+        function nextRoupaF() {
+            currentRoupaFIndex = (currentRoupaFIndex + 1) % roupasF.length;
+            updateRoupasFImages();
+        }
+    
+        function prevSapatoF() {
+            currentSapatoFIndex = (currentSapatoFIndex - 1 + sapatosF.length) % sapatosF.length;
+            updateSapatosFImages();
+        }
+    
+        function nextSapatoF() {
+            currentSapatoFIndex = (currentSapatoFIndex + 1) % sapatosF.length;
+            updateSapatosFImages();
+        }
+    
+        function prevAcessorioF() {
+            currentAcessorioFIndex = (currentAcessorioFIndex - 1 + acessoriosF.length) % acessoriosF.length;
+            updateAcessoriosFImages();
+        }
+    
+        function nextAcessorioF() {
+            currentAcessorioFIndex = (currentAcessorioFIndex + 1) % acessoriosF.length;
+            updateAcessoriosFImages();
+        }
+    
+        // Masculino
+        function prevRoupaM() {
+            currentRoupaMIndex = (currentRoupaMIndex - 1 + roupasM.length) % roupasM.length;
+            updateRoupasMImages();
+        }
+    
+        function nextRoupaM() {
+            currentRoupaMIndex = (currentRoupaMIndex + 1) % roupasM.length;
+            updateRoupasMImages();
+        }
+    
+        function prevSapatoM() {
+            currentSapatoMIndex = (currentSapatoMIndex - 1 + sapatosM.length) % sapatosM.length;
+            updateSapatosMImages();
+        }
+    
+        function nextSapatoM() {
+            currentSapatoMIndex = (currentSapatoMIndex + 1) % sapatosM.length;
+            updateSapatosMImages();
+        }
+    
+        function prevAcessorioM() {
+            currentAcessorioMIndex = (currentAcessorioMIndex - 1 + acessoriosM.length) % acessoriosM.length;
+            updateAcessoriosMImages();
+        }
+    
+        function nextAcessorioM() {
+            currentAcessorioMIndex = (currentAcessorioMIndex + 1) % acessoriosM.length;
+            updateAcessoriosMImages();
         }
     </script>
+    
 </head>
 <body>
     <header>
@@ -93,64 +180,53 @@
             </div>
         </div>
     </header> 
-    <section id="Plubicidade"></section>
     <section id="Feminino">
         <h5>Moda Feminina</h5>
         <div id="RoupasF">
             <button class="btnPN" onclick="prevRoupaF()">&lt;</button>
-            
             <div id="roupas-slide">
-                <img class="imgSlides" src="assets/0001.webp"/>
-                
+                <img id="RF01" class="imgSlides" src="" />
             </div>
             <div id="roupas-slide">
-                <img class="imgSlides" src="assets/0001.webp"/>
-                
+                <img id="RF02" class="imgSlides" src="" />
             </div>
             <div id="roupas-slide">
-                <img class="imgSlides" src="assets/0001.webp"/>
-                
+                <img id="RF03" class="imgSlides" src="" />
             </div>
             <button class="btnPN" onclick="nextRoupaF()">&gt;</button>
         </div>
-        <br/>
+        <br />
         <h5>Calçados Femininos</h5>
         <div id="SapatosF">
-            <button class="btnPN" onclick="prevSlide('SapatosF', 'sapatos-slide')">&lt;</button>
-            
+            <button class="btnPN" onclick="prevSapatoF()">&lt;</button>
             <div id="sapatos-slide">
-                <img class="imgSlides" src="assets/0001.webp"/>
-                 
+                <img id="SF01" class="imgSlides" src="" />
             </div>
             <div id="sapatos-slide">
-                <img class="imgSlides" src="assets/0001.webp"/>
-                 
+                <img id="SF02" class="imgSlides" src="" />
             </div>
             <div id="sapatos-slide">
-                <img class="imgSlides" src="assets/0001.webp"/>
-                 
+                <img id="SF03" class="imgSlides" src="" />
             </div>
-            
-            <button class="btnPN" onclick="nextSlide('SapatosF', 'sapatos-slide')">&gt;</button>
+            <button class="btnPN" onclick="nextSapatoF()">&gt;</button>
         </div>
-        <br/>
-        <h5>Acessorios Femininos</h5>
+        <br />
+        <h5>Acessorios</h5>    
         <div id="AcessoriosF">
-            <button class="btnPN" onclick="prevSlide('AcessoriosF', 'acessorios-slide')">&lt;</button>
-            
+            <button class="btnPN" onclick="prevAcessorioF()">&lt;</button>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/0001.webp"/>
+                <img id="AF01" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/0001.webp"/>
+                <img id="AF02" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/0001.webp"/>
+                <img id="AF03" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
-            <button class="btnPN" onclick="nextSlide('AcessoriosF', 'acessorios-slide')">&gt;</button>
+            <button class="btnPN" onclick="nextAcessorioF()">&gt;</button>
         </div>
     </section>
     <section id="Masculino">
@@ -158,58 +234,58 @@
         <br/>
         <h5>Moda Masculina</h5>
         <div id="RoupasMasculinas">
-            <button class="btnPN" onclick="prevSlide('AcessoriosF', 'acessorios-slide')">&lt;</button>
+            <button class="btnPN" onclick="prevRoupaM()">&lt;</button>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/vmstore.JPG"/>
+                <img id="RM01" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/vmstore.JPG"/>
+                <img id="RM02" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/vmstore.JPG"/>
+                <img id="RM03" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
-            <button class="btnPN" onclick="nextSlide('AcessoriosF', 'acessorios-slide')">&gt;</button>
+            <button class="btnPN" onclick="nextRoupaM()">&gt;</button>
         </div>
         <br/>
         <br/>
         <h5>Calçados Masculinos</h5>
         <div id="RoupasMasculinas">
-            <button class="btnPN" onclick="prevSlide('AcessoriosF', 'acessorios-slide')">&lt;</button>
+            <button class="btnPN" onclick="prevSapatoM()">&lt;</button>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/vmstore.JPG"/>
+                <img id="SM01" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/vmstore.JPG"/>
+                <img id="SM02" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/vmstore.JPG"/>
+                <img id="SM03" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
-            <button class="btnPN" onclick="nextSlide('AcessoriosF', 'acessorios-slide')">&gt;</button>
+            <button class="btnPN" onclick="nextSapatoM()">&gt;</button>
         </div>
         <br/>
         <br/>
         <h5>Acessorios Masculinos</h5>
         <div id="RoupasMasculinas">
-            <button class="btnPN" onclick="prevSlide('AcessoriosF', 'acessorios-slide')">&lt;</button>
+            <button class="btnPN" onclick="prevAcessorioM()">&lt;</button>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/vmstore.JPG"/>
+                <img id="AM01" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/vmstore.JPG"/>
+                <img id="AM02" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
             <div id="acessorios-slide">
-                <img class="imgSlides" src="assets/vmstore.JPG"/>
+                <img id="AM03" class="imgSlides" src="assets/vmstore.JPG"/>
                 
             </div>
-            <button class="btnPN" onclick="nextSlide('AcessoriosF', 'acessorios-slide')">&gt;</button>
+            <button class="btnPN" onclick="nextAcessorioM()">&gt;</button>
         </div>
     </section>
     <br/>
