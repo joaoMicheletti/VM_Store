@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>VM Store</title>
     <script>
-        const url = 'http://127.0.0.1:3000/image/';
+        const url = 'http://192.168.15.9:3000/image/';
         const acessoriosF = [];
         const acessoriosM = [];
         const sapatosF = [];
@@ -25,7 +25,7 @@
     
         window.onload = async function() {
             const Api = axios;
-            await Api.get('http://localhost:3000/produto').then((Response) => {
+            await Api.get('http://192.168.15.9:3000/produto').then((Response) => {
                 console.log(Response);
                 var produtos = Response.data.produtos;
                 var c = 0;

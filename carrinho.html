@@ -6,14 +6,50 @@
     <link rel="stylesheet" href="./indexStyle.css"/>
     <link rel="stylesheet" href="./loginRegister.css"/>
     <link rel="stylesheet" href="./carrinho.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Vita Micheletti | Carrinho</title>
     <script >
-        window.onload = function(){
+        const Api = axios;
+        const url = 'http://127.0.0.1:3000/image/';  
+        const Adicionados = [];
+        const Aprovados = [];      
+        window.onload = async function(){
             console.log(localStorage.getItem('token'))
             if(localStorage.getItem('token') === null){
                 alert('Você não tem privilegios para acessar essa página.');
                 window.location.href = 'index.html';
-            }
+            } else {
+                //buscar os podutos no carrinho do usuario.
+                const Data = {token: localStorage.getItem('token')};
+                console.log(Data);
+                await Api.post('http://127.0.0.1:3000/getcarrinho', Data).then((Response) =>{
+                    console.log(Response.data);
+                    if(Response.data.list.length === 0){
+                        console.log('nenhum produto adicionado!')
+                        document.querySelector("#addicionados").textContent = "Nenhum produto adicionado!"
+                        var add = document.querySelector("#pedidosPendentes");
+                        add.style.display = 'none';
+                        var apro = document.querySelector("#aprovados");
+                        apro.style.display = 'none';
+                    } else {
+                        //separar os produtos aprovados/adicionadas status : carrinho = adicionado | status: aprovado = aprovado;
+                        var c = 0;
+                        while(c < Response.data.list.length){
+                            if(Response.data.list[c].status === 'carrinho'){
+                                Adicionados.push(Response.data.list[c]);
+                            } else if(Response.data.list[c].status === 'aprovado'){
+                                Aprovados.push(Response.data.list[c]);
+                            };
+                            c+=1;
+                        };
+                        console.log(Adicionados);
+                        console.log(Aprovados);
+
+                    };
+                }).catch((Erro) =>{
+                    console.log(Erro);
+                });
+            };
         };
     </script>
 </head>
@@ -40,7 +76,7 @@
         </div>
     </header>
     <section id="pendentes">
-        <h3>Pedidos adicionados</h3>
+        <h3 id="addicionados">Pedidos adicionados</h3>
         <br/>
         <br/>
         <br/>
