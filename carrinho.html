@@ -84,6 +84,10 @@
                 });
             }
         };
+        function SelectProduto(imgElemento){
+            localStorage.setItem('id', imgElemento.alt);
+            window.location.href = 'checkout.html';
+        };
          
     </script>
 </head>
@@ -120,18 +124,14 @@
                 
                 
                 <div class="remove" id="roupas-slide">
-                    <img id="IT01" class="imgSlides" src=""/>
-                    
+                    <img onclick="SelectProduto(this)" id="IT01" class="imgSlides" src=""/>  
                 </div>
                 <div class="remove" id="roupas-slide">
-                    <img id="IT02" class="imgSlides" src=""/>
-                    
+                    <img onclick="SelectProduto(this)" id="IT02" class="imgSlides" src=""/>
                 </div>
                 <div class="remove" id="roupas-slide">
-                    <img id="IT03" class="imgSlides" src=""/>
-                    
+                    <img onclick="SelectProduto(this)" id="IT03" class="imgSlides" src=""/>  
                 </div>
-                
             </div>
             <br/>
             

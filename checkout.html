@@ -6,7 +6,49 @@
     <link rel="stylesheet" href="./indexStyle.css"/>
     <link rel="stylesheet" href="./loginRegister.css"/>
     <link rel="stylesheet" href="./checkout.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Vita Micheletti | Checkout</title>
+    <script>
+        const url = 'http://127.0.0.1:3000/image/';
+        const Api = axios;
+        var id_produto = 0;
+        var Oproduto = [];
+        window.onload = async function(){
+            if(localStorage.getItem('token') === null){
+                alert('Você não tem privilegios para acessar essa página.');
+                window.location.href = 'index.html';
+            } else {
+                var Data = {id: localStorage.getItem('id')};
+                await Api.post('http://localhost:3000/uniproduto', Data).then((Response) => {
+                    console.log(Response.data.produto[0].id);
+                    id_produto = Response.data.produto[0].id
+                    Oproduto.push(Response.data.produto[0]);
+                    document.querySelector("#Img").src = url+Response.data.produto[0].img;
+                    document.querySelector("#nome").textContent = Response.data.produto[0].nome;
+                    document.querySelector("#cod").textContent = "Código: "+Response.data.produto[0].id;
+                    document.querySelector("#Tamanhos").textContent = "Tamamho: "+ Response.data.produto[0].tamanho;
+                    document.querySelector("#Cor").textContent = "Cores: "+ Response.data.produto[0].cor;
+                }).catch((Erro) => {
+                    console.log(Erro);
+                });                
+            };
+        };
+        //Finalizar a compra;
+        async function finalizarCompra(){
+            var tamanho = document.querySelector('#t').value;
+            var cor = document.querySelector("#c").value;
+            var Cep = document.querySelector('#Cep').value;
+            var casa = document.querySelector('#Casa').value;
+            var nome = document.querySelector('#name').value;
+            console.log(tamanho, cor, Cep, casa, nome);
+            if(!tamanho){alert('Preencha todos os campos!')}
+            else if(!cor){alert('Preencha todos os campos!')}
+            else if(!Cep){alert('Preencha todos os campos!')}
+            else if(!casa){alert('Preencha todos os campos!')}
+            else if(!nome){alert('Preencha todos os campos!')}
+            console.log(Oproduto); 
+        };
+    </script>
 </head>
 <body>
     <header>
@@ -35,33 +77,33 @@
             <h4>Finalizar pedido</h4>
             <div id="display">
                 <div id="imgproduto">
-                    <img src="assets/vmstore.JPG" alt="img">
+                    <img id="Img" src="assets/vmstore.JPG" alt="img">
                 </div>
                 <div id="descricaopedido">
                     <p id='nome'>Nome</p><br/>
                     <p id="cod">ID</p><br/>
-                    <p>Tamanhos</p><br/>
-                    <input type="number" placeholder=" Tamanho"/>
+                    <p id="Tamanhos">Tamanhos</p><br/>
+                    <input id="t" type="number" placeholder=" Tamanho"/>
                     <br/>
                     <br/>
-                    <p>Cores | Cores | Cores</p><br/>
-                    <input type="text" placeholder="  Cor"/>
+                    <p id="Cor">Cores | Cores | Cores</p><br/>
+                    <input id="c" type="text" placeholder="  Cor"/>
                     <br/><br/>
                     <p>Dados para entrega</p>
                     <br/>
                     <br/>
                     <p>CEP:</p>
-                    <input type="number" placeholder=" CEP"/>
+                    <input id="Cep" type="number" placeholder=" CEP"/>
                     <br/><br/>
                     <p>Número da resicdencia:</p>
-                    <input type="number" placeholder=" Numero da casa"/>
+                    <input id="Casa" type="number" placeholder=" Numero da casa"/>
                     <br/>
                     <br/>
                     <p>Nome Do Destinatário:</p>
-                    <input type="text" placeholder=" nome do destinatario"/>
+                    <input id="name" type="text" placeholder=" nome do destinatario"/>
                     <br/><br/>
 
-                    <button id="btnCarrinho" >finalizar compra</button>
+                    <button onclick="finalizarCompra()" id="btnCarrinho" >finalizar compra</button>
 
                 </div>
             </div>
