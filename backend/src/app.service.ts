@@ -141,7 +141,7 @@ export class AppService {
   };
   //produtos para ilustrar o carrinho.
   async InfoProduto(data: Produtos): Promise<object>{
-    console.log(data);
+    console.log('>:>>>>',data);
     var primary = new Array(data);
     var lista = primary[0];
     console.log(typeof(lista[0]));

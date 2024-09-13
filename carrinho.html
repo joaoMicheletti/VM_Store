@@ -8,76 +8,83 @@
     <link rel="stylesheet" href="./carrinho.css"/>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Vita Micheletti | Carrinho</title>
-    <script >
+    <script>
         const Api = axios;
-        const url = 'http://127.0.0.1:3000/image/';  
+        const url = 'http://172.17.3.188:3000/image/';  
         const Adicionados = [];
         const Aprovados = [];      
-        //array para traze os produtos em si.
+        // Array para trazer os produtos em si.
         const AllProdutos = [];
-        var ImgId = [];
-        
-        window.onload = async function(){
-            if(localStorage.getItem('token') === null){
-                alert('Você não tem privilegios para acessar essa página.');
+            
+        window.onload = async function() {
+            if (localStorage.getItem('token') === null) {
+                alert('Você não tem privilégios para acessar essa página.');
                 window.location.href = 'index.html';
             } else {
-                //buscar os podutos no carrinho do usuario.
-                const Data = {token: localStorage.getItem('token')};
-                await Api.post('http://127.0.0.1:3000/getcarrinho', Data).then((Response) =>{
-                    if(Response.data.list.length === 0){
-                        document.querySelector("#addicionados").textContent = "Nenhum produto adicionado!"
+                // Buscar os produtos no carrinho do usuário.
+                const Data = { token: localStorage.getItem('token') };
+                await Api.post('http://172.17.3.188:3000/getcarrinho', Data).then(async (Response) => {
+                    if (Response.data.list.length === 0) {
+                        document.querySelector("#addicionados").textContent = "Nenhum produto adicionado!";
                         var add = document.querySelector("#pedidosPendentes");
                         add.style.display = 'none';
                         var apro = document.querySelector("#aprovados");
                         apro.style.display = 'none';
                     } else {
-                        //separar os produtos aprovados/adicionadas status : carrinho = adicionado | status: aprovado = aprovado;
+                        // Separar os produtos aprovados/adicionados
                         var c = 0;
-                        while(c < Response.data.list.length){
-                            if(Response.data.list[c].status === 'carrinho'){
+                        while (c < Response.data.list.length) {
+                            if (Response.data.list[c].status === 'carrinho') {
                                 Adicionados.push(Response.data.list[c]);
                                 AllProdutos.push(Response.data.list[c].id_produto);
-                            } else if(Response.data.list[c].status === 'aprovado'){
+                            } else if (Response.data.list[c].status === 'aprovado') {
                                 Aprovados.push(Response.data.list[c]);
-                            };
-                            c+=1;
-                        };
+                            }
+                            c += 1;
+                        }
+    
+                        // Função para buscar as informações dos produtos
                         async function InfoProdutos() {
-                            //buscar as informações dos produtos adicionados no carrinho.
-                            //objeto aceitavel para a request:
                             var Data = [];
                             var cont = 0;
-                            while (cont < AllProdutos.length){
+                            while (cont < AllProdutos.length) {
                                 Data.push(AllProdutos[cont]);
-                                cont+=1;
+                                cont += 1;
                             };
-                            
-                            await Api.post('http://127.0.0.1:3000/infoproduto', Data)
+                            var t =[]; 
+                            await Api.post('http://172.17.3.188:3000/infoproduto', Data)
                             .then((Response) => {
-                                const listaProdutos = Response.data.listaProdutos;
-
-                                for (const produto of listaProdutos) {
-                                    if (produto) {
-                                        const { id, img } = produto;
-                                        // Adicionar o id e img no objeto ImgId
-                                        ImgId.push(produto);
-                                    };
+                                t.push(Response.data.listaProdutos);
+                                var L = t[0].length
+                                console.log(t);
+                                console.log(t[0][L-4][0].img);
+                                if(t[0].length - 1 < 0){
+                                    document.querySelector("#RoupasF").style.display = 'none';
+                                } else if( t[0].length - 2 === 1 ) {
+                                    document.querySelector("#IT01").style.display = 'none';
+                                    document.querySelector("#IT02").style.display = 'none';
+                                } else {
+                                    document.querySelector("#IT01").src = url+t[0][L-4][0].img;
+                                    document.querySelector("#IT01").alt = t[0][L-4][0].id;
+                                    document.querySelector("#IT02").src = url+t[0][L-3][0].img;
+                                    document.querySelector("#IT02").alt = t[0][L-4][0].id;
+                                    document.querySelector("#IT03").src = url+t[0][L-2][0].img;
+                                    document.querySelector("#IT03").alt = t[0][L-4][0].id;
                                 };
-                            })
-                            .catch((Erro) => {
+                                 
+                            }).catch((Erro) => {
                                 console.log(Erro);
                             });
-
-                        };
-                        InfoProdutos();                        
-                    };
-                }).catch((Erro) =>{
+                        }
+    
+                        InfoProdutos();                       
+                    }
+                }).catch((Erro) => {
                     console.log(Erro);
                 });
-            };
+            }
         };
-        console.log(ImgId);
+         
     </script>
 </head>
 <body>
@@ -110,54 +117,26 @@
         <br/>
         <div id="pedidosPendentes">
             <div id="RoupasF">
-                <button class="btnPN" onclick="prevSlide('RoupasF', 'roupas-slide')">&lt;</button>
                 
-                <div id="roupas-slide">
-                    <img class="imgSlides" src="assets/0001.webp"/>
+                
+                <div class="remove" id="roupas-slide">
+                    <img id="IT01" class="imgSlides" src=""/>
                     
                 </div>
-                <div id="roupas-slide">
-                    <img class="imgSlides" src="assets/0001.webp"/>
+                <div class="remove" id="roupas-slide">
+                    <img id="IT02" class="imgSlides" src=""/>
                     
                 </div>
-                <div id="roupas-slide">
-                    <img class="imgSlides" src="assets/0001.webp"/>
+                <div class="remove" id="roupas-slide">
+                    <img id="IT03" class="imgSlides" src=""/>
                     
                 </div>
-                <button class="btnPN" onclick="nextSlide('RoupasF', 'roupas-slide')">&gt;</button>
+                
             </div>
             <br/>
             
         </div>
     </section>   
-    <section id="aprovados">
-        <h3>PedidosFinalizados</h3>
-        <div id="pedidosFinalizados">
-            
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            </div>
-            <div id="RoupasF">
-                <button class="btnPN" onclick="prevSlide('RoupasF', 'roupas-slide')">&lt;</button>
-                
-                <div id="roupas-slide">
-                    <img class="imgSlides" src="assets/0001.webp"/>
-                    
-                </div>
-                <div id="roupas-slide">
-                    <img class="imgSlides" src="assets/0001.webp"/>
-                    
-                </div>
-                <div id="roupas-slide">
-                    <img class="imgSlides" src="assets/0001.webp"/>
-                    
-                </div>
-                <button class="btnPN" onclick="nextSlide('RoupasF', 'roupas-slide')">&gt;</button>
-            </div>
-            <br/>
-    </section>
     <footer>
         <div class="footer-container">
             <div class="footer-section">
