@@ -55,6 +55,11 @@ export class AppController {
   @Post('getcarrinho')
   async GetCarrinho(@Body() data: Produtos):Promise<object>{
     return await this.appService.GetCarrinho(data);
+  };
+  // buscar produtos para ilustrar o carrinho;
+  @Post('infoproduto')
+  async InfoProduto(@Body() data: Produtos): Promise<object>{
+    return await this.appService.InfoProduto(data);
   }
 
 };

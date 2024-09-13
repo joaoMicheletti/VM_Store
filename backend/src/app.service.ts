@@ -136,7 +136,25 @@ export class AppService {
   async GetCarrinho(data: Produtos): Promise<object>{
     var token = data.token;
     var list = await connection('carrinho').where('id_user', token).select('*');
-    console.log(list)
+
     return{list}
+  };
+  //produtos para ilustrar o carrinho.
+  async InfoProduto(data: Produtos): Promise<object>{
+    console.log(data);
+    var primary = new Array(data);
+    var lista = primary[0];
+    console.log(typeof(lista[0]));
+    var c = 0;
+    var i = 0;
+    var listaProdutos = [];
+    while(c === 0){
+      if(lista[i] === undefined){
+        c = undefined;
+      }
+      listaProdutos.push(await connection('produto').where('id', parseInt(lista[i])).select('*'));
+      i+=1;
+    };
+    return{listaProdutos};
   };
 };

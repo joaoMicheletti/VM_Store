@@ -13,19 +13,19 @@
         const url = 'http://127.0.0.1:3000/image/';  
         const Adicionados = [];
         const Aprovados = [];      
+        //array para traze os produtos em si.
+        const AllProdutos = [];
+        var ImgId = [];
+        
         window.onload = async function(){
-            console.log(localStorage.getItem('token'))
             if(localStorage.getItem('token') === null){
                 alert('Você não tem privilegios para acessar essa página.');
                 window.location.href = 'index.html';
             } else {
                 //buscar os podutos no carrinho do usuario.
                 const Data = {token: localStorage.getItem('token')};
-                console.log(Data);
                 await Api.post('http://127.0.0.1:3000/getcarrinho', Data).then((Response) =>{
-                    console.log(Response.data);
                     if(Response.data.list.length === 0){
-                        console.log('nenhum produto adicionado!')
                         document.querySelector("#addicionados").textContent = "Nenhum produto adicionado!"
                         var add = document.querySelector("#pedidosPendentes");
                         add.style.display = 'none';
@@ -37,20 +37,47 @@
                         while(c < Response.data.list.length){
                             if(Response.data.list[c].status === 'carrinho'){
                                 Adicionados.push(Response.data.list[c]);
+                                AllProdutos.push(Response.data.list[c].id_produto);
                             } else if(Response.data.list[c].status === 'aprovado'){
                                 Aprovados.push(Response.data.list[c]);
                             };
                             c+=1;
                         };
-                        console.log(Adicionados);
-                        console.log(Aprovados);
+                        async function InfoProdutos() {
+                            //buscar as informações dos produtos adicionados no carrinho.
+                            //objeto aceitavel para a request:
+                            var Data = [];
+                            var cont = 0;
+                            while (cont < AllProdutos.length){
+                                Data.push(AllProdutos[cont]);
+                                cont+=1;
+                            };
+                            
+                            await Api.post('http://127.0.0.1:3000/infoproduto', Data)
+                            .then((Response) => {
+                                const listaProdutos = Response.data.listaProdutos;
 
+                                for (const produto of listaProdutos) {
+                                    if (produto) {
+                                        const { id, img } = produto;
+                                        // Adicionar o id e img no objeto ImgId
+                                        ImgId.push(produto);
+                                    };
+                                };
+                            })
+                            .catch((Erro) => {
+                                console.log(Erro);
+                            });
+
+                        };
+                        InfoProdutos();                        
                     };
                 }).catch((Erro) =>{
                     console.log(Erro);
                 });
             };
         };
+        console.log(ImgId);
     </script>
 </head>
 <body>
