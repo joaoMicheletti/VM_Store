@@ -40,11 +40,13 @@
             var Cep = document.querySelector('#Cep').value;
             var casa = document.querySelector('#Casa').value;
             var nome = document.querySelector('#name').value;
-            console.log(tamanho, cor, Cep, casa, nome);
+            var tel = document.querySelector('#tel').value;
+            console.log(tamanho, cor, Cep, casa, nome, tel);
             if(!tamanho){alert('Preencha todos os campos!')}
             else if(!cor){alert('Preencha todos os campos!')}
             else if(!Cep){alert('Preencha todos os campos!')}
             else if(!casa){alert('Preencha todos os campos!')}
+            else if(!tel){alert('preencha todos os campos!')}
             else if(!nome){alert('Preencha todos os campos!')}
             console.log(Oproduto); 
         };
@@ -101,6 +103,9 @@
                     <br/>
                     <p>Nome Do Destinatário:</p>
                     <input id="name" type="text" placeholder=" nome do destinatario"/>
+                    <br/><br/>
+                    <p>Telefone para contato:</p>
+                    <input id="tel" type="tel" placeholder=" Telefone para contato"/>
                     <br/><br/>
 
                     <button onclick="finalizarCompra()" id="btnCarrinho" >finalizar compra</button>
