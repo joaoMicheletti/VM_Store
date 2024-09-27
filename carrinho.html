@@ -10,7 +10,7 @@
     <title>Vita Micheletti | Carrinho</title>
     <script>
         const Api = axios;
-        const url = 'http://172.17.3.188:3000/image/';  
+        const url = 'http://localhost:3000/image/';  
         const Adicionados = [];
         const Aprovados = [];      
         // Array para trazer os produtos em si.
@@ -23,7 +23,7 @@
             } else {
                 // Buscar os produtos no carrinho do usuário.
                 const Data = { token: localStorage.getItem('token') };
-                await Api.post('http://172.17.3.188:3000/getcarrinho', Data).then(async (Response) => {
+                await Api.post('http://localhost:3000/getcarrinho', Data).then(async (Response) => {
                     if (Response.data.list.length === 0) {
                         document.querySelector("#addicionados").textContent = "Nenhum produto adicionado!";
                         var add = document.querySelector("#pedidosPendentes");
@@ -52,7 +52,7 @@
                                 cont += 1;
                             };
                             var t =[]; 
-                            await Api.post('http://172.17.3.188:3000/infoproduto', Data)
+                            await Api.post('http://localhost:3000/infoproduto', Data)
                             .then((Response) => {
                                 t.push(Response.data.listaProdutos);
                                 var L = t[0].length

@@ -9,9 +9,15 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Vita Micheletti | Checkout</title>
     <script>
-        const url = 'http://127.0.0.1:3000/image/';
+        const url = 'http://localhost:3000/image/';
         const Api = axios;
         var id_produto = 0;
+        var Quantidade = 0;
+        var numero_residencia = 0
+        var destinatario = 0;
+        var valor_frete = 0;
+        var sub_total = 0; 
+        var ceep = 0;
         var Oproduto = [];
         window.onload = async function(){
             if(localStorage.getItem('token') === null){
@@ -20,7 +26,7 @@
             } else {
                 var Data = {id: localStorage.getItem('id')};
                 await Api.post('http://localhost:3000/uniproduto', Data).then((Response) => {
-                    console.log(Response.data.produto[0].id);
+                    console.log(Response.data.produto[0]);
                     id_produto = Response.data.produto[0].id
                     Oproduto.push(Response.data.produto[0]);
                     document.querySelector("#Img").src = url+Response.data.produto[0].img;
@@ -35,6 +41,7 @@
         };
         //Finalizar a compra;
         async function finalizarCompra(){
+            var Quant = document.querySelector('#Quantidade').value;
             var tamanho = document.querySelector('#t').value;
             var cor = document.querySelector("#c").value;
             var Cep = document.querySelector('#Cep').value;
@@ -45,10 +52,57 @@
             if(!tamanho){alert('Preencha todos os campos!')}
             else if(!cor){alert('Preencha todos os campos!')}
             else if(!Cep){alert('Preencha todos os campos!')}
+            else if(Cep.length < 8 || Cep.length > 8){alert("Cep invalido")}
             else if(!casa){alert('Preencha todos os campos!')}
             else if(!tel){alert('preencha todos os campos!')}
             else if(!nome){alert('Preencha todos os campos!')}
-            console.log(Oproduto); 
+            else if(!Quant){alert('Preencha todos os campos!')}
+            else {
+                Quantidade = Quant;
+                numero_residencia = casa;
+                destinatario = nome 
+                cep = Cep;
+                // calcular o frete
+
+                
+
+                console.log(Oproduto); 
+                var recal = document.querySelector('#Check');
+                recal.style.display = 'block'
+                var btn = document.querySelector('#btnCarrinho');
+                btn.style.display = 'none';
+                document.querySelector('#Prod').innerHTML = `Produto: ${Oproduto[0].nome}`;
+                document.querySelector('#Quant').innerHTML = `Quantidade: ${Quant}`;
+                document.querySelector('#Color').innerHTML = `Cor: ${cor}`;
+                document.querySelector('#Preco').innerHTML = `Preço Unitário: R$${Oproduto[0].preco}`;
+                document.querySelector('#Frete').innerHTML = 'Frete: R$Calcular o frete';
+                document.querySelector('#SubTotal').innerHTML = "Sub Total: preço + frete";  
+            };
+           
+        };
+        function Recalcular(){
+            var recal = document.querySelector('#Check');
+            recal.style.display = 'none'
+            var btn = document.querySelector('#btnCarrinho');
+            btn.style.display = 'block';
+        };
+        function Finalizar(){
+            console.log('Finalizar');
+            //mandar dados para a tabela deanda.
+            
+            var Data = {
+                id_user: localStorage.getItem('token'),
+                id_produto: localStorage.getItem('id'),
+                valor_produto: Oproduto[0].preco,
+                quantidade: Quantidade,
+                cep: cep,
+                numero_residencia: numero_residencia,
+                destinatario: destinatario,
+                valor_frete: valor_frete,
+                sub_total: Oproduto[0].preco + valor_frete,
+                status: ''
+            } ;
+            console.log(Data);
         };
     </script>
 </head>
@@ -91,6 +145,9 @@
                     <p id="Cor">Cores | Cores | Cores</p><br/>
                     <input id="c" type="text" placeholder="  Cor"/>
                     <br/><br/>
+                    <p id="Cor">Quantidade</p><br/>
+                    <input id="Quantidade" type="text" placeholder="  Quantidade"/>
+                    <br/><br/>
                     <p>Dados para entrega</p>
                     <br/>
                     <br/>
@@ -108,7 +165,19 @@
                     <input id="tel" type="tel" placeholder=" Telefone para contato"/>
                     <br/><br/>
 
-                    <button onclick="finalizarCompra()" id="btnCarrinho" >finalizar compra</button>
+                    <button onclick="finalizarCompra()" id="btnCarrinho" >Consultar valr do pedido</button>
+                    <div id="Check">
+                        <br/>
+                        <p id="Prod">PRODUTO: </p>
+                        <p id="Quant">QUANTIDADE: </p>
+                        <p id="Color">COR: </p>
+                        <p id="Preco">PREÇO UNITARIO: </p>
+                        <p id="Frete">FRETE: </p>
+                        <p id="SubTotal">SUB TOTAL: </p>
+                        <br/>
+                        <button onclick="Recalcular()" class="btnCheck">Recalcular</button>
+                        <button onclick="Finalizar()" class="btnCheck">Finalizar compra</button>
+                    </div>
 
                 </div>
             </div>
